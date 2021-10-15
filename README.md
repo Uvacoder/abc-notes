@@ -91,3 +91,61 @@ const App: React.FC = () => {
 
 export default App;
 ```
+
+-----
+
+## Basic auth example with useContext in React/typescript
+
+### AuthContainer.tsx
+```typescript
+import React, { useState } from "react";
+
+export const AuthContainer: React.FC = props => {
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
+  const checkAuth = () => {
+    setLoggedIn(true);
+  };
+  return (
+    <AuthContext.Provider value={{ loggedIn, checkAuth }}>
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
+
+export type AuthContextShape = {
+  loggedIn: boolean;
+  checkAuth: () => void;
+};
+
+export const AuthContext = React.createContext({} as AuthContextShape);
+```
+
+### context.tsx
+```typescript
+import React, { useContext } from "react";
+import { AuthContext } from "./AuthContainer";
+
+export const Content: React.FC = () => {
+  const { loggedIn, checkAuth } = useContext(AuthContext);
+
+  return (
+    <div>
+      {loggedIn ? "Welcome back!" : <button onClick={checkAuth}>Log In</button>}
+    </div>
+  );
+};
+```
+
+### app.tsx
+```typescript
+import React from "react";
+import "./App.css";
+import { Content } from "./Content";
+
+const App: React.FC = () => {
+  return <Content />;
+};
+
+export default App;
+```
