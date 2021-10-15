@@ -1,4 +1,4 @@
-## About the Project
+## This is a simple example repository demonstrating one way to toggle React themes using the useContext hook.
 
 This project shows one method to use React's `useContext` and `useState` hooks to implement dark/light mode toggling. The relevant files are `src/ThemeProvider.tsx`, `src/index.tsx`, and `src/App.tsx`.
 
